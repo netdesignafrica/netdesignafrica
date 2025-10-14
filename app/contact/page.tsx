@@ -199,7 +199,7 @@ export default function ContactPage() {
                           id="phone"
                           name="phone"
                           type="tel"
-                          placeholder="+254 700 000 000"
+                          placeholder="+256 700 000 000"
                           value={formData.phone}
                           onChange={handleChange}
                         />
