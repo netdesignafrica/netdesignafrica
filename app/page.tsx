@@ -2,35 +2,21 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ArrowRight, Code, Smartphone, Palette, Zap, Globe, Users } from "lucide-react"
+import Hero from "@/components/Hero"
 
 export default function HomePage() {
   return (
     <main className="min-h-screen">
+      {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNY2YJLPGT"></script>
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-CNY2YJLPGT');`,
+          }}
+        />
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
-        <div className="container mx-auto px-4 lg:px-8 relative">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-foreground text-balance leading-tight">
-              Transforming Ideas into <span className="text-primary">Digital Excellence</span>
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto text-pretty leading-relaxed">
-              We design and develop exceptional websites and custom software solutions for businesses, institutions, and
-              individuals across Africa.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button asChild size="lg" className="w-full sm:w-auto">
-                <Link href="/contact">
-                  Start Your Project <ArrowRight className="ml-2" size={18} />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="w-full sm:w-auto bg-transparent">
-                <Link href="/portfolio">View Our Work</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Hero />
 
       {/* Services Overview */}
       <section className="py-20 lg:py-32 bg-muted/30">

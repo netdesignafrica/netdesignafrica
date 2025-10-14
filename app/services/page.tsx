@@ -81,6 +81,14 @@ export default function ServicesPage() {
 
   return (
     <main className="min-h-screen">
+      {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNY2YJLPGT"></script>
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-CNY2YJLPGT');`,
+          }}
+        />
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
         <div className="container mx-auto px-4 lg:px-8">
