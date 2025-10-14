@@ -264,12 +264,8 @@ export default function ContactPage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Visit Our Office</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
-              We're located in the heart of Nairobi, Kenya. Drop by for a coffee and let's discuss your project.
+              We're located in the heart of Kampala, Uganda. Drop by for a coffee and let's discuss your project.
             </p>
-          </div>
-
-          <div className="aspect-[16/9] lg:aspect-[21/9] rounded-2xl overflow-hidden bg-muted">
-            <img src="/nairobi-kenya-city-map-location.jpg" alt="Office location map" className="w-full h-full object-cover" />
           </div>
         </div>
       </section>
