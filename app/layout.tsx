@@ -105,6 +105,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNY2YJLPGT"></script>
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-CNY2YJLPGT');`,
+          }}
+        />
         {/* Canonical link and JSON-LD structured data for SEO */}
         <link rel="canonical" href={SITE_URL} />
         <script
