@@ -177,7 +177,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 lg:py-32 bg-primary text-primary-foreground">
+      <section className="py-20 lg:py-32 bg-[image:var(--primary-gradient)] bg-cover bg-center text-primary-foreground">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-3xl mx-auto text-center space-y-8">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-balance">Ready to Start Your Project?</h2>

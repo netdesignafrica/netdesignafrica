@@ -19,11 +19,49 @@ export default function ContactPage() {
     service: "",
     message: "",
   })
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log("Form submitted:", formData)
+    setError(null)
+    setLoading(true)
+
+    try {
+      const resp = await fetch('/api/send-whatsapp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await resp.json()
+      if (!resp.ok || !data.success) {
+        setError(data.error || 'Failed to send message')
+        setLoading(false)
+        return
+      }
+
+      // Build a human-friendly message to open in WhatsApp
+      const message = `Hello! Net Design Africa.%0A%0AName: ${encodeURIComponent(formData.name)}%0AEmail: ${encodeURIComponent(
+        formData.email,
+      )}%0APhone: ${encodeURIComponent(formData.phone || '')}%0ACompany: ${encodeURIComponent(
+        formData.company || '',
+      )}%0AService: ${encodeURIComponent(formData.service || '')}%0A%0AMessage: ${encodeURIComponent(formData.message)}`
+
+      // Prefer recipientPhone returned from the server, fall back to a public number
+      const recipient = data.recipientPhone || '+256707029929'
+
+      // Open WhatsApp web/mobile with the prefilled message
+      const waUrl = `https://wa.me/${recipient.replace(/[^0-9]/g, '')}?text=${message}`
+
+      // Ensure we open WhatsApp only after server confirmed send
+      window.open(waUrl, '_blank')
+      setLoading(false)
+    } catch (err) {
+      console.error(err)
+      setError('An unexpected error occurred')
+      setLoading(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -69,8 +107,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Email</h3>
-                      <p className="text-sm text-muted-foreground">info@netdesignafrica.com</p>
-                      <p className="text-sm text-muted-foreground">support@netdesignafrica.com</p>
+                      <p className="text-sm text-muted-foreground">netdesignafrica@gmail.com</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -82,8 +119,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Phone</h3>
-                      <p className="text-sm text-muted-foreground">+254 700 000 000</p>
-                      <p className="text-sm text-muted-foreground">+254 711 000 000</p>
+                      <p className="text-sm text-muted-foreground">+254 707 029 929</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -95,8 +131,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Office</h3>
-                      <p className="text-sm text-muted-foreground">Westlands, Nairobi</p>
-                      <p className="text-sm text-muted-foreground">Kenya, East Africa</p>
+                      <p className="text-sm text-muted-foreground">Kampala, Uganda</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -208,8 +243,12 @@ export default function ContactPage() {
                       />
                     </div>
 
-                    <Button type="submit" size="lg" className="w-full">
-                      Send Message
+                    {error && (
+                      <div className="text-sm text-destructive mb-2">{error}</div>
+                    )}
+
+                    <Button type="submit" size="lg" className="w-full" disabled={loading}>
+                      {loading ? 'Sending...' : 'Send Message'}
                     </Button>
                   </form>
                 </CardContent>
